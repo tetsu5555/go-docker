@@ -1,5 +1,6 @@
 # start/stop docker container by docker-compose
 up:
+	docker-compose down
 	docker-compose up
 down:
 	docker-compose down
