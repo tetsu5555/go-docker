@@ -12,10 +12,10 @@ services:
   #     - 3306
   #   environment:
   #     # TODO: for dev
-  #     MYSQL_DATABASE: school
+  #     MYSQL_DATABASE: hoge
   #     MYSQL_USER: root
   #     MYSQL_ROOT_PASSWORD: ""
-  #     MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  #     MYSQL_ALLOW_EMPTY_PASSWORD: ""
   #   volumes:
   #     - data:/var/lib/mysql
   #     - data:/var/lib/mysql:rw
