@@ -29,3 +29,5 @@ services:
     #   - db
     volumes:
       - ./backend:/go/src
+    ports:
+      - 1323:1323
