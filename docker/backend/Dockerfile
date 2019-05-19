@@ -10,4 +10,4 @@ RUN go mod download
 COPY . .
 # COPY . .
 EXPOSE 1323
-CMD ["go", "run", "hello.go"]
+CMD ["go", "run", "main.go"]
