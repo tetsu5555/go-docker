@@ -30,4 +30,4 @@ services:
     volumes:
       - ./backend:/go/src
     ports:
-      - 1323:1323
+      - 1313:1313

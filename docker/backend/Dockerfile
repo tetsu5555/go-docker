@@ -8,6 +8,5 @@ COPY backend/go.sum .
 RUN go mod download
 
 COPY . .
-# COPY . .
-EXPOSE 1323
+
 CMD ["go", "run", "main.go"]
