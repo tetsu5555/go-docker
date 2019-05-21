@@ -1,5 +1,10 @@
 FROM golang:1.12
 ENV GO111MODULE=on
+
+RUN apt-get update -qq && \
+    apt-get install -y vim && \
+    go get -u github.com/pilu/fresh
+
 WORKDIR /go/src
 
 COPY backend/go.mod .
@@ -9,4 +14,4 @@ RUN go mod download
 
 COPY . .
 
-CMD ["go", "run", "main.go"]
+CMD ["fresh"]
