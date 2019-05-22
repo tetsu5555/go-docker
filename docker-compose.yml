@@ -1,33 +1,36 @@
 version: '2'
 services:
-  # db:
-  #   command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
-  #   build:
-  #     context: .
-  #     dockerfile: ./docker/mysql/Dockerfile
-  #   hostname: mysql
-  #   ports:
-  #     - "3306:3306"
-  #   expose:
-  #     - 3306
-  #   environment:
-  #     # TODO: for dev
-  #     MYSQL_DATABASE: hoge
-  #     MYSQL_USER: root
-  #     MYSQL_ROOT_PASSWORD: ""
-  #     MYSQL_ALLOW_EMPTY_PASSWORD: ""
-  #   volumes:
-  #     - data:/var/lib/mysql
-  #     - data:/var/lib/mysql:rw
+  db:
+    # ここのコマンド？
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    build:
+      context: .
+      dockerfile: ./docker/db/Dockerfile
+    # hostnameとは？
+    hostname: mysql
+    ports:
+      - "3306:3306"
+    # exposeとは？
+    expose:
+      - 3306
+    # environmentとは？
+    environment:
+      MYSQL_DATABASE: school
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      # MYSQL_ALLOW_EMPTY_PASSWORD: ""
+    volumes:
+      - data:/var/lib/mysql
   backend:
     container_name: backend-api
     build:
       context: .
       dockerfile: ./docker/backend/Dockerfile
-    tty: true
-    # links:
-    #   - db
+    links:
+      - db
     volumes:
       - ./backend:/go/src
     ports:
       - 1313:1313
+volumes:
+  data:
