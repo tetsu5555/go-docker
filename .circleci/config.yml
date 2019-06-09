@@ -10,6 +10,6 @@ jobs:
       - checkout
       - run: mv ./backend /go/src/backend
       - run:
-        name: run test
-        command: go test -run ''
-        working_directory: /go/src/backend
+          name: run test
+          command: go test -run ''
+          working_directory: /go/src/backend

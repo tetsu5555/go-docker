@@ -30,3 +30,5 @@ http://grmn.hatenablog.com/entry/2018/09/06/113204
 [fresh導入時に参考にした記事](https://qiita.com/po3rin/items/9acd41ef428436335c97)
 
 [はじめてのgo test](https://qiita.com/marnie_ms4/items/e51cc6d879cc9ad07af3)
+
+[CircleCIの結果をSlackに通知する](https://qiita.com/su-kun1899/items/640f6fa8b48749396c16)
