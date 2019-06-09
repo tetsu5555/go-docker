@@ -1,6 +1,7 @@
 ## 使用技術
 
 [echo](https://echo.labstack.com/)
+[CircleCI](https://circleci.com/)
 
 ## メモ
 
