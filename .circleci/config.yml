@@ -4,16 +4,4 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.12.0
-        environment:
-          GO111MODULE: "on"
-          DB_USER: root
-          DB_PASSWORD: root
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_NAME: circle_test
-          DB_NAME_TEST: circle_test
       - image: circleci/mysql:5.7.13
-        command: --sql_mode="NO_ENGINE_SUBSTITUTION"
-        environment:
-          MYSQL_USER: root
-          MYSQL_ROOT_PASSWORD: root
