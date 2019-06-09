@@ -1,7 +1,23 @@
 ## 使用技術
 
-[echo](https://echo.labstack.com/)
-[CircleCI](https://circleci.com/)
+- [echo](https://echo.labstack.com/)
+- [CircleCI](https://circleci.com/)
+
+## Set up
+
+```
+//start service
+make up
+
+// stop service
+make down
+
+// run shell interactively in backend container
+make backend
+
+// run test
+make test
+```
 
 ## メモ
 
