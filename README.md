@@ -28,3 +28,5 @@ http://grmn.hatenablog.com/entry/2018/09/06/113204
 [makefileの参考記事](https://qiita.com/yoskeoka/items/317a3afab370155b3ae8)
 
 [fresh導入時に参考にした記事](https://qiita.com/po3rin/items/9acd41ef428436335c97)
+
+[はじめてのgo test](https://qiita.com/marnie_ms4/items/e51cc6d879cc9ad07af3)

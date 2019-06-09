@@ -10,3 +10,7 @@ down:
 .PHONY: backend
 backend:
 	docker exec -it backend-api sh
+
+.PHONY: test
+test:
+	docker exec -it backend-api go test -run ''
