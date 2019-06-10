@@ -20,9 +20,9 @@ jobs:
     steps:
       - checkout
       - run: mv ./backend /go/src/backend
-      - restore_cache:
-          keys:
-            - go-mod-v1-{{ checksum "/go/src/backend/go.sum" }}
+      # - restore_cache:
+      #     keys:
+      #       - go-mod-v1-{{ checksum "/go/src/backend/go.sum" }}
       - run:
           name: run test
           command: go test -run ''
