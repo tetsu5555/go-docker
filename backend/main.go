@@ -1,9 +1,10 @@
 package main
 
 import (
-	"net/http"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+
+	"backend/handlers"
 )
 
 func main() {
@@ -15,13 +16,8 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// Routes
-	e.GET("/", hello)
+	e.GET("/", handlers.Hello)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1313"))
-}
-
-// Handler
-func hello(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World! every one!! how are you?")
 }

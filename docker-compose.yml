@@ -15,7 +15,7 @@ services:
       - 3306
     # environmentとは？
     environment:
-      MYSQL_DATABASE: school
+      MYSQL_DATABASE: myapp
       MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: root
       # MYSQL_ALLOW_EMPTY_PASSWORD: ""
