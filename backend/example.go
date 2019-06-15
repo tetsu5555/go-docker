@@ -4,7 +4,7 @@ import (
 	"errors"
 )
 
-func example(code string) (int,error) {
+func example(code string) (int, error) {
 	if code == "hoge" {
 		return 1, nil
 	}

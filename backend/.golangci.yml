@@ -1,0 +1,39 @@
+# Settings for golangci-lint
+---
+
+run:
+  skip-dirs:
+    - generated
+    - migrations
+    - schemas
+    - seeds
+  skip-files:
+    - ".*_gen\\.go$"
+    - generated.go
+
+linters:
+  enable-all: false
+  enable:
+    # enabled by default
+    - govet
+    - errcheck
+    - staticcheck
+    - gosimple
+    - structcheck
+    - varcheck
+    - ineffassign
+    - deadcode
+    - typecheck
+    # additional
+    - golint
+    - gosec
+    - goimports
+    - misspell
+  disable:
+    - unused
+
+linters-settings:
+  errcheck:
+    check-blank: true
+  golint:
+    min-confidence: 0.4

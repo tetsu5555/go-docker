@@ -14,3 +14,7 @@ backend:
 .PHONY: test
 test:
 	docker exec -it backend-api go test -run ''
+
+.PHONY: lint
+lint:
+	docker exec --tty backend-api golangci-lint run ./...
