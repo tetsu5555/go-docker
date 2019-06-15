@@ -7,5 +7,5 @@ import (
 )
 
 func TestReverse(t *testing.T) {
-	assert.Equal(t, Reverse("abc"), "ba")
+	assert.Equal(t, Reverse("abc"), "cba")
 }
