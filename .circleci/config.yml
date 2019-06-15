@@ -3,6 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
+      # Circle CIに自分のプロジェクトをビルドする時にはどのDockerイメージを使うのかを伝えている
       - image: circleci/golang:1.12.0
         environment:
           GO111MODULE: "on"
@@ -16,10 +17,16 @@ jobs:
         environment:
           MYSQL_USER: root
           MYSQL_ROOT_PASSWORD: root
+    # これなんだっけ？
     working_directory: ~/repo
+    # stepsのrunで実行するコマンドを指定していく
     steps:
+      # checkoutってなんだ？
+      # CircleCIがGitHubのレポジトリをチェックアウトし、作成した仮想環境にクローンするらしい
       - checkout
+      これなんだっけ？
       - run: mv ./backend /go/src/backend
+      # restore_cashe??
       # - restore_cache:
       #     keys:
       #       - go-mod-v1-{{ checksum "/go/src/backend/go.sum" }}
