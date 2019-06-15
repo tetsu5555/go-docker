@@ -24,7 +24,7 @@ jobs:
       # checkoutってなんだ？
       # CircleCIがGitHubのレポジトリをチェックアウトし、作成した仮想環境にクローンするらしい
       - checkout
-      これなんだっけ？
+      # これなんだっけ？
       - run: mv ./backend /go/src/backend
       # restore_cashe??
       # - restore_cache:
