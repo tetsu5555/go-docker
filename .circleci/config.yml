@@ -35,4 +35,4 @@ jobs:
           command: go test -run ''
           working_directory: /go/src/backend
       - run: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s -- -b ./bin
-      - run: golangci-lint ./... 2>&1 | ./bin/reviewdog -f=govet -reporter=github-pr-check
+      - run: golangci-lint --issues-exit-code 0 --out-format checkstyle ./... 2>&1 | ./bin/reviewdog -name=golangci-lint -f=checkstyle -reporter=github-pr-check
