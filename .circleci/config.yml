@@ -34,3 +34,5 @@ jobs:
           name: run test
           command: go test -run ''
           working_directory: /go/src/backend
+      - run: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s -- -b ./bin
+      - run: go vet ./... 2>&1 | ./bin/reviewdog -f=govet -reporter=github-pr-check
