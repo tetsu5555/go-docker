@@ -4,6 +4,7 @@ ENV GO111MODULE=on
 RUN apt-get update -qq && \
     apt-get install -y vim && \
     go get -u github.com/pilu/fresh && \
+    go get -u github.com/reviewdog/reviewdog/cmd/reviewdog && \
     go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 
 WORKDIR /go/src
