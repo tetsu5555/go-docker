@@ -25,7 +25,6 @@ jobs:
       # checkoutってなんだ？
       # CircleCIがGitHubのレポジトリをチェックアウトし、作成した仮想環境にクローンするらしい
       - checkout
-      - setup_remote_docker
       # これなんだっけ？
       - run: mv ./backend /go/src/backend
       - run: go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
@@ -38,6 +37,4 @@ jobs:
       #     command: go test -run ''
       #     working_directory: /go/src/backend
       - run: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
-      - run: |
-          docker-compose up -d
-          docker-compose exec backend golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... | reviewdog -name=golangci-lint -f=checkstyle -reporter='github-pr-review' || exit 0
+      - run: golangci-lint run --issues-exit-code 0 --out-format checkstyle /go/src/backend/... | reviewdog -name=golangci-lint -f=checkstyle -reporter='github-pr-review' || exit 0
