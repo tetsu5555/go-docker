@@ -28,6 +28,10 @@ jobs:
       # これなんだっけ？
       - run: mv ./backend /go/src/backend
       - run:
+          name: ls
+          command: ls
+          working_directory: /go/src/backend
+      - run:
           name: go build
           command: go build main.go
           working_directory: /go/src/backend
