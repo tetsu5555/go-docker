@@ -6,7 +6,6 @@ jobs:
       # Circle CIに自分のプロジェクトをビルドする時にはどのDockerイメージを使うのかを伝えている
       - image: circleci/golang:1.12.0
         environment:
-          GO111MODULE: "on"
           DB_USER: root
           DB_PASSWORD: root
           DB_HOST: 127.0.0.1
