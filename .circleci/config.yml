@@ -37,6 +37,7 @@ jobs:
           command: go test -run ''
           working_directory: /go/src/backend
       - run: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
+      - run: git status
       - run:
           name: reviewdog
           command: golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... | reviewdog -name=golangci-lint -f=checkstyle -reporter='github-pr-check' || exit 0
