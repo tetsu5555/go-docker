@@ -50,7 +50,7 @@ jobs:
           command: |
             golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... > ~/repo/result.txt
             cd ~/repo
-            cat ~/repo/result.txt | reviewdog -name=golangci-lint -f=checkstyle -reporter='github-pr-review'
+            cat ~/repo/result.txt | reviewdog -name=golangci-lint -f=checkstyle -diff="git diff master" -reporter='github-pr-review'
           working_directory: /go/src/backend
       - store_artifacts:
           path: ~/repo/result.txt
