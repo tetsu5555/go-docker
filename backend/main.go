@@ -11,15 +11,15 @@ import (
 
 func main() {
 	// Echo instance
-	e := echo.New()
+		e := echo.New()
 
 	// Middleware
-		e.Use(middleware.Logger())
-		e.Use(middleware.Recover())
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 
 	// Routes
-	e.GET("/", handlers.Hello)
+		e.GET("/", handlers.Hello)
 
 	// Start server
-	e.Logger.Fatal(e.Start(":1313"))
+		e.Logger.Fatal(e.Start(":1313"))
 }
