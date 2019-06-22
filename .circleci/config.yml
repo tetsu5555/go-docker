@@ -36,4 +36,4 @@ jobs:
       #     command: go test -run ''
       #     working_directory: /go/src/backend
       - run: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
-      - run: golangci-lint run --issues-exit-code 0 --out-format checkstyle /go/src/backend/... | reviewdog -name=golangci-lint -f=checkstyle -reporter='github-pr-review' || exit 0
+      - run: golangci-lint run --issues-exit-code 0 --out-format checkstyle /go/src/backend | reviewdog -name=golangci-lint -f=checkstyle -reporter='github-pr-review' || exit 0
