@@ -17,6 +17,7 @@ jobs:
         environment:
           MYSQL_USER: root
           MYSQL_ROOT_PASSWORD: root
+          GITHUB_API: https://api.github.com/repos/tetsu5555/go-docker
     # これなんだっけ？
     working_directory: ~/repo
     # stepsのrunで実行するコマンドを指定していく
@@ -38,5 +39,5 @@ jobs:
       - run: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
       - run:
           name: reviewdog
-          command: golangci-lint run --tests=false --issues-exit-code 0 --out-format checkstyle ./... | reviewdog -name=golangci-lint -f=checkstyle -diff='git diff master' || exit 0
+          command: golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... | reviewdog -name=golangci-lint -f=checkstyle -reporter='github-pr-check' || exit 0
           working_directory: /go/src/backend
