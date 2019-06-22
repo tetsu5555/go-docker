@@ -28,8 +28,8 @@ jobs:
       # これなんだっけ？
       - run: mv ./backend /go/src/backend
       - run:
-          name: go mod download
-          command: GO111MODULE=on go mod download
+          name: go build
+          command: go build main.go
           working_directory: /go/src/backend
       - run: go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
       # restore_cashe??
