@@ -1,5 +1,9 @@
 version: 2.1
 
+general:
+  artifacts:
+    - "result.txt"
+
 jobs:
   build:
     docker:
@@ -28,10 +32,6 @@ jobs:
       # これなんだっけ？
       - run: mv ./backend /go/src/backend
       - run:
-          name: ls
-          command: ls
-          working_directory: /go/src/backend
-      - run:
           name: go build
           command: go build main.go
           working_directory: /go/src/backend
@@ -52,3 +52,6 @@ jobs:
             cd ~/repo
             cat ~/repo/result.txt | reviewdog -name=golangci-lint -f=checkstyle -reporter='github-pr-review'
           working_directory: /go/src/backend
+      - store_artifacts:
+          path: ~/repo/result.txt
+          destination: result.txt
