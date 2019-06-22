@@ -6,7 +6,7 @@ jobs:
       # Circle CIに自分のプロジェクトをビルドする時にはどのDockerイメージを使うのかを伝えている
       - image: circleci/golang:1.12.0
         environment:
-          # GO111MODULE: "on"
+          GO111MODULE: "on"
           DB_USER: root
           DB_PASSWORD: root
           DB_HOST: 127.0.0.1
@@ -40,12 +40,12 @@ jobs:
       # - restore_cache:
       #     keys:
       #       - go-mod-v1-{{ checksum "/go/src/backend/go.sum" }}
-      - run:
-          name: run test
-          command: go test -run ''
-          working_directory: /go/src/backend
+      # - run:
+      #     name: run test
+      #     command: go test -run ''
+      #     working_directory: /go/src/backend
       - run: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
       - run:
           name: run review dog
-          command: golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... | ( cd ~/repo; reviewdog -name=golangci-lint -f=checkstyle -reporter='github-pr-review' ) || exit 0
+          command: GO111MODULE=off golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... | ( cd ~/repo; reviewdog -name=golangci-lint -f=checkstyle -reporter='github-pr-review' ) || exit 0
           working_directory: /go/src/backend
