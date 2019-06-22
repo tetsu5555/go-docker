@@ -41,3 +41,7 @@ jobs:
           name: reviewdog
           command: golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... | reviewdog -name=golangci-lint -f=checkstyle -reporter='github-pr-check' || exit 0
           working_directory: /go/src/backend
+      - run:
+          name: reviewdog
+          command: golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... | reviewdog -name=golangci-lint -f=checkstyle -diff='git diff master' || exit 0
+          working_directory: /go/src/backend
