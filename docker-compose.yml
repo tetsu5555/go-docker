@@ -31,7 +31,7 @@ services:
     links:
       - db
     volumes:
-      - ./backend:/go/src
+      - ./backend:/go/src/backend
     ports:
       - 1313:1313
 volumes:

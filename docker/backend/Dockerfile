@@ -8,7 +8,7 @@ RUN apt-get update -qq && \
     && go get -u github.com/pilu/fresh \
     && go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 
-WORKDIR /go/src
+WORKDIR /go/src/backend
 
 COPY backend/go.mod .
 COPY backend/go.sum .
