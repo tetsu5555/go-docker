@@ -27,6 +27,10 @@ jobs:
       - checkout
       # これなんだっけ？
       - run: mv ./backend /go/src/backend
+      - run:
+          name: go mod download
+          command: go mod download
+          working_directory: /go/src/backend
       - run: go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
       # restore_cashe??
       # - restore_cache:
