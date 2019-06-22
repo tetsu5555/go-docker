@@ -37,7 +37,10 @@ jobs:
           command: go test -run ''
           working_directory: /go/src/backend
       - run: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
-      - run: git status
+      - run:
+          name: git status
+          command: git status
+          working_directory: /go/src/backend
       - run: git rev-parse --show-prefix
       - run:
           name: reviewdog
