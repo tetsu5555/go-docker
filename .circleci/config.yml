@@ -25,8 +25,9 @@ jobs:
       # checkoutってなんだ？
       # CircleCIがGitHubのレポジトリをチェックアウトし、作成した仮想環境にクローンするらしい
       - checkout
+      - setup_remote_docker
       # これなんだっけ？
-      - run: mv ./backend /go/src/backend
+
       - run: go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
       # restore_cashe??
       # - restore_cache:
@@ -38,19 +39,6 @@ jobs:
           working_directory: /go/src/backend
       - run: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
       - run:
-          name: git status
-          command: git status
-          working_directory: /go/src/backend
-      - run: git rev-parse --show-prefix
-      - run:
           name: reviewdog
-          command: golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... | reviewdog -name=golangci-lint -f=checkstyle -reporter='github-pr-check' || exit 0
-          working_directory: /go/src/backend
-      - run:
-          name: reviewdog
-          command: golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... | reviewdog -name=golangci-lint -f=checkstyle -reporter='github-pr-review' || exit 0
-          working_directory: /go/src/backend
-      - run:
-          name: reviewdog
-          command: golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... | reviewdog -name=golangci-lint -f=checkstyle -diff='git diff master' || exit 0
+          command: docker-compose exec go-docker_backend golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... | reviewdog -name=golangci-lint -f=checkstyle -reporter='github-pr-review' || exit 0
           working_directory: /go/src/backend
