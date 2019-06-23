@@ -65,7 +65,7 @@ jobs:
       - run:
           name: run review dog
           command: |
-            golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... > ~/repo/result.txt
+            golangci-lint run --out-format checkstyle ./... > ~/repo/result.txt
             cd ~/repo
             cat ~/repo/result.txt | ./bin/reviewdog -name=golangci-lint -f=checkstyle -diff="git diff" -reporter='github-pr-review'
           working_directory: /go/src/backend
