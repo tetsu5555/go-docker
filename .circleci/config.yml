@@ -31,20 +31,33 @@ jobs:
       - checkout
       # これなんだっけ？
       - run: mv ./backend /go/src/backend
+      - restore_cache:
+          keys:
+            - go-mod-v1-{{ checksum "/go/src/backend/go.sum" }}
+            - golangci-lint
+            - reviewdog
       - run:
           name: go build
           command: go build main.go
           working_directory: /go/src/backend
-      - run: go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
-      # restore_cashe??
-      # - restore_cache:
-      #     keys:
-      #       - go-mod-v1-{{ checksum "/go/src/backend/go.sum" }}
+      - run:
+          name: install golangci_lint
+          command: go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+      - save_cache:
+          key: golangci-lint
+          paths:
+            - /go/bin/golangci-lint
       # - run:
       #     name: run test
       #     command: go test -run ''
       #     working_directory: /go/src/backend
-      - run: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
+      - run:
+        name: install reviwdog
+        command: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
+      - save_cache:
+          key: reviewdog
+          paths:
+            - /go/bin/reviewdog
       - run:
           name: run review dog
           command: |
@@ -52,6 +65,10 @@ jobs:
             cd ~/repo
             cat ~/repo/result.txt | reviewdog -name=golangci-lint -f=checkstyle -diff="git diff master" -reporter='github-pr-review'
           working_directory: /go/src/backend
+      - save_cache:
+          key: go-mod-v1-{{ checksum "/go/src/backend/go.sum" }}
+          paths:
+            - "/go/pkg/mod"
       - store_artifacts:
           path: ~/repo/result.txt
           destination: result.txt
