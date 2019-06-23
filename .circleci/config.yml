@@ -22,7 +22,7 @@ jobs:
         environment:
           MYSQL_USER: root
           MYSQL_ROOT_PASSWORD: root
-          GITHUB_API: https://api.github.com/repos/tetsu5555/go-docker
+          # GITHUB_API: https://api.github.com/repos/tetsu5555/go-docker
     # これなんだっけ？
     working_directory: ~/repo
     # stepsのrunで実行するコマンドを指定していく
@@ -57,7 +57,7 @@ jobs:
       #     command: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
       - run:
           name: install reviewdog
-          command: "curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s  v$REVIEWDOG_VERSION"
+          command: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s  v$REVIEWDOG_VERSION
       # - save_cache:
       #     key: reviewdog
       #     paths:
