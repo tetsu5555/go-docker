@@ -17,6 +17,7 @@ jobs:
           DB_PORT: 3306
           DB_NAME: circle_test
           DB_NAME_TEST: circle_test
+          REVIEWDOG_VERSION: 0.9.12
       - image: circleci/mysql:5.7
         environment:
           MYSQL_USER: root
@@ -35,7 +36,7 @@ jobs:
           keys:
             - go-mod-v1-{{ checksum "/go/src/backend/go.sum" }}
             - golangci-lint
-            - reviewdog
+            # - reviewdog
       - run:
           name: go build
           command: go build main.go
@@ -51,13 +52,16 @@ jobs:
       #     name: run test
       #     command: go test -run ''
       #     working_directory: /go/src/backend
+      # - run:
+      #     name: install reviwdog
+      #     command: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
       - run:
-          name: install reviwdog
-          command: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
-      - save_cache:
-          key: reviewdog
-          paths:
-            - /go/bin/reviewdog
+          name: install reviewdog
+          command: "curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s  v$REVIEWDOG_VERSION"
+      # - save_cache:
+      #     key: reviewdog
+      #     paths:
+      #       - /go/bin/reviewdog
       - run:
           name: run review dog
           command: |
