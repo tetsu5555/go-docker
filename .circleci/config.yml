@@ -63,7 +63,14 @@ jobs:
           command: |
             golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... > ~/repo/result.txt
             cd ~/repo
-            cat ~/repo/result.txt | reviewdog -name=golangci-lint -f=checkstyle -diff="git diff master" -reporter='github-pr-review'
+            cat ~/repo/result.txt | reviewdog -name=golangci-lint -f=checkstyle -diff="git diff" -reporter='github-pr-review'
+          working_directory: /go/src/backend
+      - run:
+          name: run review dog
+          command: |
+            golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... > ~/repo/result.txt
+            cd ~/repo
+            cat ~/repo/result.txt | reviewdog -name=golangci-lint -f=checkstyle -diff="git diff" -reporter='github-pr-check'
           working_directory: /go/src/backend
       - save_cache:
           key: go-mod-v1-{{ checksum "/go/src/backend/go.sum" }}
