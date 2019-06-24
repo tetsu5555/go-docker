@@ -9,7 +9,7 @@ down:
 # run shell in container
 .PHONY: backend
 backend:
-	docker exec -it backend-api sh
+	docker exec --tty -it backend-api bash
 
 .PHONY: test
 test:

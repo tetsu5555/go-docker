@@ -1,5 +1,9 @@
 version: 2.1
 
+general:
+  artifacts:
+    - "result.txt"
+
 jobs:
   build:
     docker:
@@ -13,10 +17,12 @@ jobs:
           DB_PORT: 3306
           DB_NAME: circle_test
           DB_NAME_TEST: circle_test
+          REVIEWDOG_VERSION: 0.9.12
       - image: circleci/mysql:5.7
         environment:
           MYSQL_USER: root
           MYSQL_ROOT_PASSWORD: root
+          # GITHUB_API: https://api.github.com/repos/tetsu5555/go-docker
     # これなんだっけ？
     working_directory: ~/repo
     # stepsのrunで実行するコマンドを指定していく
@@ -26,17 +32,54 @@ jobs:
       - checkout
       # これなんだっけ？
       - run: mv ./backend /go/src/backend
-      - run: go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
-      # restore_cashe??
-      # - restore_cache:
-      #     keys:
-      #       - go-mod-v1-{{ checksum "/go/src/backend/go.sum" }}
+      - restore_cache:
+          keys:
+            - go-mod-v1-{{ checksum "/go/src/backend/go.sum" }}
+            - golangci-lint
+            # - reviewdog
       - run:
-          name: run test
-          command: go test -run ''
+          name: go build
+          command: go build main.go
           working_directory: /go/src/backend
-      - run: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
       - run:
-          name: reviewdog
-          command: golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... | reviewdog -name=golangci-lint -f=checkstyle -reporter=github-pr-check || exit 0
+          name: install golangci_lint
+          command: go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+      - save_cache:
+          key: golangci-lint
+          paths:
+            - /go/bin/golangci-lint
+      # - run:
+      #     name: run test
+      #     command: go test -run ''
+      #     working_directory: /go/src/backend
+      # - run:
+      #     name: install reviwdog
+      #     command: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
+      - run:
+          name: install reviewdog
+          command: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s  v$REVIEWDOG_VERSION
+      # - save_cache:
+      #     key: reviewdog
+      #     paths:
+      #       - /go/bin/reviewdog
+      - run:
+          name: run review dog
+          command: |
+            golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... > ~/repo/result.txt
+            cd ~/repo
+            cat ~/repo/result.txt | ./bin/reviewdog -name=golangci-lint -f=checkstyle -diff="git diff" -reporter='github-pr-review'
           working_directory: /go/src/backend
+      - run:
+          name: run review dog
+          command: |
+            golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... > ~/repo/result.txt
+            cd ~/repo
+            cat ~/repo/result.txt | ./bin/reviewdog -name=golangci-lint -f=checkstyle -diff="git diff" -reporter='github-pr-check'
+          working_directory: /go/src/backend
+      - save_cache:
+          key: go-mod-v1-{{ checksum "/go/src/backend/go.sum" }}
+          paths:
+            - "/go/pkg/mod"
+      - store_artifacts:
+          path: ~/repo/result.txt
+          destination: result.txt
