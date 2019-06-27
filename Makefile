@@ -11,6 +11,10 @@ down:
 backend:
 	docker exec --tty -it backend-api bash
 
+.PHONY: db
+db:
+	docker exec --tty -it go-docker_db_1 bash
+
 .PHONY: test
 test:
 	docker exec -it backend-api go test -run ''
