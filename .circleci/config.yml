@@ -50,6 +50,7 @@ jobs:
           name: run golangci-lint
           command: |
             golangci-lint run --issues-exit-code 0 --out-format checkstyle ./...
+          working_directory: /go/src/backend
       # - run:
       #     name: run test
       #     command: go test -run ''
