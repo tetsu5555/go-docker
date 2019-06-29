@@ -77,7 +77,7 @@ jobs:
               -E gocyclo --gocyclo.min-complexity 15 \
               ./... > ~/repo/result.txt
             cd ~/repo
-            cat ~/repo/result.txt | ./bin/reviewdog -name=golangci-lint -f=checkstyle -diff="git diff" -reporter='github-pr-review'
+            cat ~/repo/result.txt | ./bin/reviewdog -f=checkstyle -diff="git diff" -reporter='github-pr-review'
           working_directory: /go/src/backend
       - run:
           name: run review dog
