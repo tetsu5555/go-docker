@@ -49,7 +49,19 @@ jobs:
       - run:
           name: run golangci-lint
           command: |
-            golangci-lint run --issues-exit-code 0 --out-format checkstyle ./...
+            golangci-lint run \
+              --issues-exit-code 0 \
+              --out-format checkstyle \
+              --disable-all \
+              -E errcheck \
+              -E ineffassign \
+              -E interfacer \
+              -E unconvert \
+              -E misspell \
+              -E unparam \
+              -E nakedret \
+              -E prealloc \
+              ./...
           working_directory: /go/src/backend
       # - run:
       #     name: run test
