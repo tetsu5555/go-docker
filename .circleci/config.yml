@@ -71,7 +71,6 @@ jobs:
             golangci-lint run \
               --issues-exit-code 0 \
               --out-format checkstyle \
-              --disable-all \
               -E errcheck \
               -E ineffassign \
               -E interfacer \
