@@ -18,6 +18,7 @@ jobs:
           DB_NAME: circle_test
           DB_NAME_TEST: circle_test
           REVIEWDOG_VERSION: 0.9.12
+          GITHUB_API: https://api.github.com/repos/tetsu5555/go-docker
       - image: circleci/mysql:5.7
         environment:
           MYSQL_USER: root
