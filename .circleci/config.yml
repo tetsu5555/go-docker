@@ -22,21 +22,19 @@ jobs:
         environment:
           MYSQL_USER: root
           MYSQL_ROOT_PASSWORD: root
-          # GITHUB_API: https://api.github.com/repos/tetsu5555/go-docker
-    # これなんだっけ？
+    # 作業ディレクトリをrepoにする
     working_directory: ~/repo
     # stepsのrunで実行するコマンドを指定していく
     steps:
       # checkoutってなんだ？
       # CircleCIがGitHubのレポジトリをチェックアウトし、作成した仮想環境にクローンするらしい
       - checkout
-      # これなんだっけ？
       - run: mv ./backend /go/src/backend
       - restore_cache:
           keys:
             - go-mod-v1-{{ checksum "/go/src/backend/go.sum" }}
             - golangci-lint
-            # - reviewdog
+            - reviewdog
       - run:
           name: go build
           command: go build main.go
@@ -48,20 +46,21 @@ jobs:
           key: golangci-lint
           paths:
             - /go/bin/golangci-lint
+      - run:
+          name: run golangci-lint
+          command: |
+            golangci-lint run --issues-exit-code 0 --out-format checkstyle ./...
       # - run:
       #     name: run test
       #     command: go test -run ''
       #     working_directory: /go/src/backend
-      # - run:
-      #     name: install reviwdog
-      #     command: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
       - run:
           name: install reviewdog
           command: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s  v$REVIEWDOG_VERSION
-      # - save_cache:
-      #     key: reviewdog
-      #     paths:
-      #       - /go/bin/reviewdog
+      - save_cache:
+          key: reviewdog
+          paths:
+            - ./bin/reviewdog
       - run:
           name: run review dog
           command: |
