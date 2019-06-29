@@ -72,7 +72,6 @@ jobs:
               --tests=false \
               --issues-exit-code 0 \
               --out-format checkstyle \
-              --disable-all \
               -E dupl \
               -E goconst \
               -E gocyclo --gocyclo.min-complexity 15 \
