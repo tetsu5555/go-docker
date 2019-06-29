@@ -1,7 +1,7 @@
 package main
 
 import (
-	// "github.com/jinzhu/gorm"
+	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -15,8 +15,8 @@ func main() {
 	e := echo.New()
 
 	// Middleware
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
+				e.Use(middleware.Logger())
+			e.Use(middleware.Recover())
 
 	// Init DB
 	db.Init()
