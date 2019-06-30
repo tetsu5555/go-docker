@@ -83,7 +83,6 @@ jobs:
             sed -i  -e 's/<file name="/<file name="backend\//' result.txt
             cat ~/repo/result.txt | reviewdog -f=checkstyle -reporter='github-pr-review'
           working_directory: /go/src/backend
-          working_directory: /go/src/backend
       - save_cache:
           key: go-mod-v1-{{ checksum "/go/src/backend/go.sum" }}
           paths:
