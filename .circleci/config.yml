@@ -60,12 +60,15 @@ jobs:
       #     command: go test -run ''
       #     working_directory: /go/src/backend
       - run:
-          name: install reviewdog
-          command: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s  v$REVIEWDOG_VERSION
+          name: install reviwdog
+          command: go get -u github.com/reviewdog/reviewdog/cmd/reviewdog
+      # - run:
+      #     name: install reviewdog
+      #     command: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s  v$REVIEWDOG_VERSION
       - save_cache:
           key: reviewdog
           paths:
-            - ./bin/reviewdog
+            - /go/bin/reviewdog
       - run:
           name: run review dog
           command: |
@@ -78,15 +81,8 @@ jobs:
               ./... > ~/repo/result.txt
             cd ~/repo
             sed -i  -e 's/<file name="/<file name="backend\//' result.txt
-            cat ~/repo/result.txt | ./bin/reviewdog -f=checkstyle -reporter='github-pr-review'
+            cat ~/repo/result.txt | reviewdog -f=checkstyle -reporter='github-pr-review'
           working_directory: /go/src/backend
-      - run:
-          name: run review dog
-          command: |
-            golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... > ~/repo/result.txt
-            cd ~/repo
-            sed -i  -e 's/<file name="/<file name="backend\//' result.txt
-            cat ~/repo/result.txt | ./bin/reviewdog -f=checkstyle -reporter='github-pr-check'
           working_directory: /go/src/backend
       - save_cache:
           key: go-mod-v1-{{ checksum "/go/src/backend/go.sum" }}
