@@ -77,6 +77,7 @@ jobs:
               -E goconst \
               ./... > ~/repo/result.txt
             cd ~/repo
+            sed -i  -e 's/<file name="/<file name="backend\//' result.txt
             cat ~/repo/result.txt | ./bin/reviewdog -f=checkstyle -reporter='github-pr-review'
           working_directory: /go/src/backend
       - run:
