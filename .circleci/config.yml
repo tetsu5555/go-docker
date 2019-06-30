@@ -84,6 +84,7 @@ jobs:
           command: |
             golangci-lint run --issues-exit-code 0 --out-format checkstyle ./... > ~/repo/result.txt
             cd ~/repo
+            sed -i  -e 's/<file name="/<file name="backend\//' result.txt
             cat ~/repo/result.txt | ./bin/reviewdog -f=checkstyle -reporter='github-pr-check'
           working_directory: /go/src/backend
       - save_cache:
