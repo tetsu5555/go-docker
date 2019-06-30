@@ -21,6 +21,7 @@ func Show(c echo.Context) error {
 
 	// TODO: FIX
 	user.Name = "hogehoge" + strconv.Itoa(rand.Intn(10000))
+
 	user.Password = "taro"
 	user.Hobby = "fishing"
 
